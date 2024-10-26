@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export default function Entries({ onAddEntry }) {
+export default function EntryForm({ createEntry }) {
   const [destination, setDestination] = useState("");
   const [funFacts, setFunFacts] = useState("");
   const [timeSlot, setTimeSlot] = useState("");
@@ -8,7 +8,20 @@ export default function Entries({ onAddEntry }) {
 
   function handleSubmit(event) {
     event.preventDefault();
+
+    const formData = new FormData(event.target);
+    const data = Object.fromEntries(formData);
+
+    console.log("from EntryForm; ", data); //zum testen
+
     // for my submit event later
+    createEntry(data);
+
+    // Reset state values to clear the form
+    setDestination("");
+    setFunFacts("");
+    setTimeSlot("");
+    setTransportation("");
   }
 
   return (
@@ -20,16 +33,8 @@ export default function Entries({ onAddEntry }) {
           value={destination}
           onChange={(event) => setDestination(event.target.value)}
           placeholder="Enter destination"
-        />
-      </div>
-
-      <div>
-        <label>Fun Facts: </label>
-        <input
-          type="text"
-          value={funFacts}
-          onChange={(event) => setFunFacts(event.target.value)}
-          placeholder="Enter fun facts"
+          name="destination"
+          required
         />
       </div>
 
@@ -40,6 +45,8 @@ export default function Entries({ onAddEntry }) {
           value={timeSlot}
           onChange={(event) => setTimeSlot(event.target.value)}
           placeholder="Enter time slot"
+          name="timeSlot"
+          required
         />
       </div>
 
@@ -48,8 +55,22 @@ export default function Entries({ onAddEntry }) {
         <input
           type="text"
           value={transportation}
-          onChange={(e) => setTransportation(event.target.value)}
+          onChange={(event) => setTransportation(event.target.value)}
           placeholder="Enter transportation"
+          name="transportation"
+          required
+        />
+      </div>
+
+      <div>
+        <label>Fun Facts: </label>
+        <input
+          type="text"
+          value={funFacts}
+          onChange={(event) => setFunFacts(event.target.value)}
+          placeholder="Enter fun facts"
+          name="funFacts"
+          required
         />
       </div>
 
