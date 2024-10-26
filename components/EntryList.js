@@ -1,4 +1,4 @@
-import NewEntry from "./NewEntry";
+import Entry from "./Entry";
 
 export default function EntryList({ entries }) {
   console.log("from EntryList: ", entries);
@@ -10,7 +10,7 @@ export default function EntryList({ entries }) {
   return (
     <div>
       {entries.map((entry) => (
-        <NewEntry key={entry.id} entry={entry} />
+        <Entry key={entry.id} entry={entry} />
       ))}
     </div>
   );

@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function NewEntry({ entry }) {
+export default function Entry({ entry }) {
   //logic
   console.log("from NewEntry: ", entry);
 
