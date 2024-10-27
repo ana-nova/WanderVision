@@ -1,80 +1,76 @@
-import React, { useState } from "react";
+import React from "react";
 
-export default function EntryForm({ createEntry, isEditing }) {
-  const [destination, setDestination] = useState("");
-  const [funFacts, setFunFacts] = useState("");
-  const [timeSlot, setTimeSlot] = useState("");
-  const [transportation, setTransportation] = useState("");
-
+export default function EntryForm({
+  onSubmitEntry,
+  submitLabel = "Add Trip",
+  initialData = {
+    destination: "",
+    timeSlot: "",
+    transportation: "",
+    funFacts: "",
+  },
+}) {
   function handleSubmit(event) {
     event.preventDefault();
-
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
-
-    console.log("from EntryForm; ", data); //zum testen
-
-    // for my submit event later
-    createEntry(data);
-
-    // Reset state values to clear the form
-    setDestination("");
-    setFunFacts("");
-    setTimeSlot("");
-    setTransportation("");
+    onSubmitEntry(data);
   }
 
   return (
     <form onSubmit={handleSubmit}>
-      <div>
-        <label>Destination: </label>
+      <label htmlFor="destination">
+        Destination
+        <br />
         <input
           type="text"
-          value={destination}
-          onChange={(event) => setDestination(event.target.value)}
-          placeholder="Enter destination"
+          id="destination"
           name="destination"
+          defaultValue={initialData.destination}
+          placeholder="Enter destination"
           required
         />
-      </div>
-
-      <div>
-        <label>Time Slot: </label>
+      </label>
+      <br />
+      <label htmlFor="timeSlot">
+        Time Slot
+        <br />
         <input
           type="date"
-          value={timeSlot}
-          onChange={(event) => setTimeSlot(event.target.value)}
-          placeholder="Enter time slot"
+          id="timeSlot"
           name="timeSlot"
+          defaultValue={initialData.timeSlot}
           required
         />
-      </div>
-
-      <div>
-        <label>Transportation: </label>
+      </label>
+      <br />
+      <label htmlFor="transportation">
+        Transportation
+        <br />
         <input
           type="text"
-          value={transportation}
-          onChange={(event) => setTransportation(event.target.value)}
-          placeholder="Enter transportation"
+          id="transportation"
           name="transportation"
+          defaultValue={initialData.transportation}
+          placeholder="Enter transportation"
           required
         />
-      </div>
-
-      <div>
-        <label>Fun Facts: </label>
+      </label>
+      <br />
+      <label htmlFor="funFacts">
+        Fun Facts
+        <br />
         <input
           type="text"
-          value={funFacts}
-          onChange={(event) => setFunFacts(event.target.value)}
-          placeholder="Enter fun facts"
+          id="funFacts"
           name="funFacts"
+          defaultValue={initialData.funFacts}
+          placeholder="Enter fun facts"
           required
         />
-      </div>
-
-      <button type="submit">{isEditing ? "Save Changes" : "Add Trip"}</button>
+      </label>
+      <br />
+      <button type="submit">{submitLabel}</button>
     </form>
   );
 }

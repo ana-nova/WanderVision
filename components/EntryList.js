@@ -2,39 +2,39 @@ import { useState } from "react";
 import Entry from "./Entry";
 import EntryForm from "./EntryForm";
 
-export default function EntryList({ entries, onEditEntry }) {
-  const [editEntryId, setEditEntryId] = useState(false);
-
-  if (!entries) {
-    return <div>No entries here!</div>;
-  }
-
-  function handleEdit() {
-    setEditEntryId(!editEntryId);
-  }
-
-  function handleEditedEntry(editedEntry) {
-    onEditEntry(editEntryId.id, editedEntry);
-    setEditEntryId(false);
-  }
+export default function EntryList({
+  entries,
+  onAddEntry,
+  onEditEntry,
+  onDeleteEntry,
+}) {
+  const [isAdding, setIsAdding] = useState(false);
 
   return (
     <div>
+      <h1>Plan Your Next Trip</h1>
+      {isAdding ? (
+        <>
+          <EntryForm
+            onSubmitEntry={(newEntry) => {
+              onAddEntry(newEntry);
+              setIsAdding(false);
+            }}
+            submitLabel="Add Trip"
+          />
+          <button onClick={() => setIsAdding(false)}>Cancel</button>
+        </>
+      ) : (
+        <button onClick={() => setIsAdding(true)}>Add New Trip</button>
+      )}
+
       {entries.map((entry) => (
-        <div key={entry.id}>
-          {editEntryId ? (
-            <EntryForm
-              onEditEntry={handleEditedEntry}
-              isEditing={editEntryId}
-              initialEntry={entry} // Pass current entry data to edit form
-            />
-          ) : (
-            <>
-              <Entry entry={entry} />
-              <button onClick={handleEdit}>Edit</button>
-            </>
-          )}
-        </div>
+        <Entry
+          key={entry.id}
+          entry={entry}
+          onEditEntry={onEditEntry}
+          onDeleteEntry={onDeleteEntry}
+        />
       ))}
     </div>
   );

@@ -1,37 +1,35 @@
-import EntryForm from "../components/EntryForm.js";
-import EntryList from "@/components/EntryList.js";
+import EntryList from "@/components/EntryList";
 import { uid } from "uid";
 import useLocalStorageState from "use-local-storage-state";
 
 export default function HomePage() {
-  // my global state
   const [entries, setEntries] = useLocalStorageState("my entries", {
     defaultValue: [],
   });
 
-  function createEntry(entryObject) {
-    const newEntry = {
-      id: uid(),
-      ...entryObject,
-    };
+  function addEntry(entryData) {
+    const newEntry = { id: uid(), ...entryData };
     setEntries((prevEntries) => [newEntry, ...prevEntries]);
   }
 
-  function editEntry(id, editedEntry) {
+  function editEntry(id, updatedEntry) {
     setEntries((prevEntries) =>
-      prevEntries.map((entry) => (entry.id === id ? editedEntry : entry))
+      prevEntries.map((entry) =>
+        entry.id === id ? { ...entry, ...updatedEntry } : entry
+      )
     );
   }
 
+  function deleteEntry(id) {
+    setEntries((prevEntries) => prevEntries.filter((entry) => entry.id !== id));
+  }
+
   return (
-    <div>
-      <h1>Plan Your Next Trip</h1>
-      <EntryForm createEntry={createEntry} />
-      {entries.map((entry) => {
-        return (
-          <EntryList key={entry.id} entries={entries} onEditEntry={editEntry} />
-        );
-      })}
-    </div>
+    <EntryList
+      entries={entries}
+      onAddEntry={addEntry}
+      onEditEntry={editEntry}
+      onDeleteEntry={deleteEntry}
+    />
   );
 }
