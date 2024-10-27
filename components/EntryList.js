@@ -6,6 +6,7 @@ export default function EntryList({
   onAddEntry,
   onEditEntry,
   onDeleteEntry,
+  onToggleFavorite,
 }) {
   return (
     <div>
@@ -22,6 +23,7 @@ export default function EntryList({
           entry={entry}
           onEditEntry={onEditEntry}
           onDeleteEntry={onDeleteEntry}
+          onToggleFavorite={onToggleFavorite} // Pass toggle favorite to each Entry
         />
       ))}
     </div>

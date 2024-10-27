@@ -1,11 +1,18 @@
 import { useState } from "react";
 import EntryForm from "./EntryForm";
+import FavIcon from "@/public/assets/heart.svg";
+import FavIconFilled from "@/public/assets/heartfill.svg";
 
-export default function Entry({ entry, onDeleteEntry, onEditEntry }) {
+export default function Entry({
+  entry,
+  onDeleteEntry,
+  onEditEntry,
+  onToggleFavorite,
+}) {
   const [mode, setMode] = useState("default");
 
   return (
-    <div className="entry-card">
+    <div className={`entry-card ${entry.favorite ? "favorite" : ""}`}>
       {mode === "edit" ? (
         <>
           <EntryForm
@@ -26,6 +33,9 @@ export default function Entry({ entry, onDeleteEntry, onEditEntry }) {
           <p>Time Slot: {entry.timeSlot}</p>
           <p>Transportation: {entry.transportation}</p>
           <p>Fun Facts: {entry.funFacts}</p>
+          <button type="button" onClick={() => onToggleFavorite(entry.id)}>
+            {entry.favorite ? <FavIconFilled /> : <FavIcon />}
+          </button>
           <button type="button" onClick={() => setMode("edit")}>
             Edit
           </button>

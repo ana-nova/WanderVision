@@ -8,7 +8,7 @@ export default function HomePage() {
   });
 
   function addEntry(entryData) {
-    const newEntry = { id: uid(), ...entryData };
+    const newEntry = { id: uid(), ...entryData, favorite: false };
     setEntries((prevEntries) => [newEntry, ...prevEntries]);
   }
 
@@ -24,12 +24,21 @@ export default function HomePage() {
     setEntries((prevEntries) => prevEntries.filter((entry) => entry.id !== id));
   }
 
+  function toggleFavorite(id) {
+    setEntries((prevEntries) =>
+      prevEntries.map((entry) =>
+        entry.id === id ? { ...entry, favorite: !entry.favorite } : entry
+      )
+    );
+  }
+
   return (
     <EntryList
       entries={entries}
       onAddEntry={addEntry}
       onEditEntry={editEntry}
       onDeleteEntry={deleteEntry}
+      onToggleFavorite={toggleFavorite} // Pass the toggle function
     />
   );
 }
