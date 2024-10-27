@@ -17,11 +17,21 @@ export default function HomePage() {
     setEntries((prevEntries) => [newEntry, ...prevEntries]);
   }
 
+  function editEntry(id, editedEntry) {
+    setEntries((prevEntries) =>
+      prevEntries.map((entry) => (entry.id === id ? editedEntry : entry))
+    );
+  }
+
   return (
     <div>
       <h1>Plan Your Next Trip</h1>
       <EntryForm createEntry={createEntry} />
-      <EntryList entries={entries} />
+      {entries.map((entry) => {
+        return (
+          <EntryList key={entry.id} entries={entries} onEditEntry={editEntry} />
+        );
+      })}
     </div>
   );
 }

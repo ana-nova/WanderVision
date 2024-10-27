@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export default function EntryForm({ createEntry }) {
+export default function EntryForm({ createEntry, isEditing }) {
   const [destination, setDestination] = useState("");
   const [funFacts, setFunFacts] = useState("");
   const [timeSlot, setTimeSlot] = useState("");
@@ -74,7 +74,7 @@ export default function EntryForm({ createEntry }) {
         />
       </div>
 
-      <button type="submit">add trip</button>
+      <button type="submit">{isEditing ? "Save Changes" : "Add Trip"}</button>
     </form>
   );
 }

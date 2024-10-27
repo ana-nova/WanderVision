@@ -1,9 +1,6 @@
 import React from "react";
 
 export default function Entry({ entry }) {
-  //logic
-  console.log("from NewEntry: ", entry);
-
   return (
     <div>
       <h3>Your Destination: {entry.destination}</h3>
