@@ -1,16 +1,15 @@
-// import { SWRConfig } from "swr";
-import Layout from "@/components/Layout";
 import GlobalStyle from "../styles";
-
-//const fetcher = (url) => fetch(url).then((response) => response.json());
+import useLocalStorageState from "use-local-storage-state";
 
 export default function App({ Component, pageProps }) {
+  const [entries, setEntries] = useLocalStorageState("my entries", {
+    defaultValue: [],
+  });
+
   return (
     <>
       <GlobalStyle />
-      {/* <SWRConfig value={{ fetcher }}> */}
-      <Component {...pageProps} />
-      {/* </SWRConfig> */}
+      <Component {...pageProps} entries={entries} setEntries={setEntries} />
     </>
   );
 }

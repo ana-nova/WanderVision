@@ -2,13 +2,7 @@ import styled from "styled-components";
 import EntryCard from "./EntryCard";
 import EntryForm from "./EntryForm";
 
-export default function EntryList({
-  entries,
-  onAddEntry,
-  onEditEntry,
-  onDeleteEntry,
-  onToggleFavorite,
-}) {
+export default function EntryList({ entries, onAddEntry, onToggleFavorite }) {
   return (
     <div>
       <h1>Plan Your Next Trip</h1>
@@ -22,10 +16,8 @@ export default function EntryList({
         {entries.map((entry) => (
           <li key={entry.id}>
             <EntryCard
-              //  key={entry.id}
+              key={entry.id}
               entry={entry}
-              onEditEntry={onEditEntry}
-              onDeleteEntry={onDeleteEntry}
               onToggleFavorite={onToggleFavorite} // Pass toggle favorite to each Entry
             />
           </li>
