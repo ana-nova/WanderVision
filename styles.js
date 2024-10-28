@@ -1,14 +1,9 @@
 import { createGlobalStyle } from "styled-components";
 
 export default createGlobalStyle`
-:root {
-    --color-nemo: #ff4a11;
-    --color-granite: #252629;
-    --color-water-10: #f3f5f9;
-    --color-foam: #ffffff;
+// :root {
 
-    --gap: 20px;
-  }
+//   }
   
   *,
   *::before,
@@ -17,11 +12,10 @@ export default createGlobalStyle`
   }
 
   body {
-    display: grid;
-    margin: auto;
+    margin: 0;
     font-family: system-ui;
     place-items: center;
-    min-height: 100vh;
-    max-width: 50rem;
+    
+
   }
 `;

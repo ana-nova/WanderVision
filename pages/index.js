@@ -1,4 +1,5 @@
 import EntryList from "@/components/EntryList";
+import styled from "styled-components";
 import { uid } from "uid";
 import useLocalStorageState from "use-local-storage-state";
 

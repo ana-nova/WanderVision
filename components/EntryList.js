@@ -1,4 +1,5 @@
-import Entry from "./Entry";
+import styled from "styled-components";
+import EntryCard from "./EntryCard";
 import EntryForm from "./EntryForm";
 
 export default function EntryList({
@@ -15,17 +16,31 @@ export default function EntryList({
         onSubmitEntry={(newEntry) => {
           onAddEntry(newEntry);
         }}
-        submitLabel="Add Trip"
+        isEditing={false}
       />
-      {entries.map((entry) => (
-        <Entry
-          key={entry.id}
-          entry={entry}
-          onEditEntry={onEditEntry}
-          onDeleteEntry={onDeleteEntry}
-          onToggleFavorite={onToggleFavorite} // Pass toggle favorite to each Entry
-        />
-      ))}
+      <ListContainer>
+        {entries.map((entry) => (
+          <li key={entry.id}>
+            <EntryCard
+              //  key={entry.id}
+              entry={entry}
+              onEditEntry={onEditEntry}
+              onDeleteEntry={onDeleteEntry}
+              onToggleFavorite={onToggleFavorite} // Pass toggle favorite to each Entry
+            />
+          </li>
+        ))}
+      </ListContainer>
     </div>
   );
 }
+
+const ListContainer = styled.ul`
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Fixed 3 columns */
+  gap: 20px;
+  width: 100%;
+`;
